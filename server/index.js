@@ -18,16 +18,16 @@ app.use('/api', router)
 //Обработка ошибок
 app.use(errorHandler)
 
-app.get('/', (req,res) => {
-    res.status(200).json({message:"!!"})
+app.get('/', (req, res) => {
+    res.status(200).json({ message: "!!" })
 })
 
 
-const start = async ()=> {
+const start = async () => {
     try {
         await sequelize.authenticate() // ф-ция для подключения бд
         await sequelize.sync() // ф-ция для сверения бд со схемами данных
-        app.listen(PORT, ()=> console.log(`SERVER STArt: ${PORT}`))
+        app.listen(PORT, () => console.log(`SERVER STArt: ${PORT}`))
     }
     catch (e) {
         console.log(e)

@@ -1,10 +1,10 @@
-const {Type, Brand} = require('../models/models')
+const { Type, Brand } = require('../models/models')
 const ApiError = require('../error/ApiError')
 class BrandController {
     async create(req, res) {
 
-        const {name} = req.body
-        const brand = await Brand.create({name})
+        const { name } = req.body
+        const brand = await Brand.create({ name })
         return res.json(brand)
 
     }
