@@ -1,67 +1,83 @@
 const uuid = require('uuid')
 const path = require('path');
-const { Cart, CartDevice } = require('../models/models.js')
+const {Cart, CartDevice} = require('../models/models.js')
 const ApiError = require('../error/ApiError');
+const {Brand, User, Device, DeviceInfo} = require("../models/models");
+const bcrypt = require("bcrypt");
+const {where} = require("sequelize");
 
 class cartController {
-    async create(req, res, next) {
-        try {
-            let { name, price, brandId, typeId, info } = req.body
-            const { img } = req.files
-            let fileName = uuid.v4() + ".jpg"
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const device = await Device.create({ name, price, brandId, typeId, img: fileName });
 
-            if (info) {
-                info = JSON.parse(info)
-                info.forEach(i =>
-                    DeviceInfo.create({
-                        title: i.title,
-                        description: i.description,
-                        deviceId: device.id
-                    })
-                )
-            }
-            return res.json(device)
+    async addDevice(req, res, next) {
+        try {
+            const {email, deviceId} = req.body
+            const user = await User.findOne(
+                {
+                    where: {email},
+                },
+            )
+            const cart = await Cart.findOne(
+                {
+                    where: {userId: user.id},
+                },
+            )
+            const addedDevice = await CartDevice.create({cartId: cart.id, deviceId})
+            return res.json(addedDevice)
+
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
-
     }
 
-    async getAll(req, res) {
-        let { brandId, typeId, limit, page } = req.query
-        page = page || 1
-        limit = limit || 9
-        let offset = page * limit - limit
-        let devices;
-        if (!brandId && !typeId) {
-            devices = await Device.findAndCountAll({ limit, offset })
-        }
-        if (brandId && !typeId) {
-            devices = await Device.findAndCountAll({ where: { brandId }, limit, offset })
-        }
-        if (!brandId && typeId) {
-            devices = await Device.findAndCountAll({ where: { typeId }, limit, offset })
-        }
-        if (brandId && typeId) {
-            devices = await Device.findAndCountAll({ where: { typeId, brandId }, limit, offset })
-        }
-        return res.json(devices)
-    }
-
-    async delete(req, res, next) {
+    async deleteDevice(req, res, next) {
         try {
-            let { id } = req.body
-        
-            const cartDevice = await CartDevice.delete({ id });
+            const {email, deviceId} = req.body
+            const user = await User.findOne(
+                {
+                    where: {email},
+                },
+            )
+            const cart = await Cart.findOne(
+                {
+                    where: {userId: user.id},
+                },
+            )
+            const deletedDevice = await CartDevice.destroy(
+                {where:
+                        {cartId:cart.id, deviceId}
+                }
 
-            return res.status(200).json({message: `Deleted ${id}`})
+             )
+            return res.json(deletedDevice)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
+    }
 
+    async GetAll(req, res, next) {
+        try {
+            const {email} = req.body
+            const user = await User.findOne(
+                {
+                    where: {email},
+                },
+            )
+            const cart = await Cart.findOne(
+                {
+                    where: {userId: user.id},
+                },
+            )
+            const allDevices = await CartDevice.findAll(
+                {where:
+                        {cartId:cart.id}
+                }
+
+            )
+            return  res.json(allDevices)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 }
 
-module.exports = new DeviceController()
+module.exports = new cartController()

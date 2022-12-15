@@ -2,7 +2,7 @@ const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const { User, Basket } = require('../models/models')
+const { User,  Cart} = require('../models/models')
 
 const generateJwt = (id, email, role) => {
 
@@ -28,7 +28,10 @@ class UserController {
             }
             const hashPassword = await bcrypt.hash(password, 5)
             const user = await User.create({ email, role, password: hashPassword })
-            const basket = await Basket.create({ userId: user.id })
+
+
+
+            const cart = await Cart.create({ userId: user.id })
 
             const token = generateJwt(user.id, email, user.role)
             return res.json({ token, user })
@@ -42,7 +45,6 @@ class UserController {
     async login(req, res, next) {
         try {
             const { email, password } = req.body
-            console.log(email, password + "!!!!!!!!!!!!!!!!") //undefined undefined 
             const user = await User.findOne({ where: { email } })
             if (!user) {
                 return next(ApiError.Internal('Пользователь не найден'))
