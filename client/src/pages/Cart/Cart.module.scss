@@ -1,0 +1,117 @@
+.container{
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid orange;
+    border-radius: 4px;
+
+}
+
+.top{
+    min-width: 800px;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid orange;
+    padding: 30px 30px 4px 30px;
+}
+
+.title{
+
+
+}
+.buttonsBar{
+    
+}
+
+
+
+.bottom{
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid orange;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+.clearAll{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    span{
+        margin-left: 10px;
+        color: rgb(156, 156, 156);
+    }
+    &:hover{
+        transition: 0.3s ease 0s;
+        background-color: rgb(136, 125, 125);
+        span{
+            color: white;
+        }
+    }
+
+}
+
+
+.items{
+
+}
+.details{
+    display: flex;
+    flex-direction: column;
+    span{
+        margin-bottom: 6px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
+@mixin button{
+    padding: 10px 20px;
+    border: 1px solid black;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.buttonBack{
+    @include button();
+    margin-right: 40px;
+    span{
+        margin-left: 8px;
+        color: rgb(191, 190, 190);
+    }
+}
+.payButton{
+    @include button();
+    background-color: beige;
+
+    &:hover{
+        transition: 0.3s ease 0s;
+        background-color: orange;
+        span{
+            color: white;
+        }
+        border-color: white; 
+    }
+}

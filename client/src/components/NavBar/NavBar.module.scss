@@ -1,0 +1,51 @@
+@mixin button{
+    background-color: white;
+    color: rgb(228, 176, 80);
+    border: 1px solid rgb(228, 176, 80);
+    &:hover{
+        transition: 0.3s ease 0s;
+        background-color: rgb(255, 166, 0);
+        color: white;
+        border-color: white;
+    }
+}
+
+.logo{
+    width: 100%;
+    object-fit: contain;
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 5px 5px gray;
+    &:active{
+        transition: 0.4s ease-in 0s;
+        background-color: gray;
+        box-shadow: none;
+    }
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color:beige;
+    border-bottom: 1px solid black;
+    margin-bottom: 30px;
+}
+
+.navButtons{
+    padding: 20px 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth{
+    @include button();
+    margin-right: 20px;
+}
+
+.logout{
+    @include button();
+}
