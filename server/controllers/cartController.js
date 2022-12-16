@@ -10,7 +10,8 @@ class cartController {
 
     async addDevice(req, res, next) {
         try {
-            const {email, deviceId} = req.body
+            const {email, deviceId} = req.body.params
+            console.log('Controller: ', email, deviceId);
             const user = await User.findOne(
                 {
                     where: {email},
@@ -31,7 +32,7 @@ class cartController {
 
     async deleteDevice(req, res, next) {
         try {
-            const {email, deviceId} = req.body
+            const {email, deviceId} = req.body.params
             const user = await User.findOne(
                 {
                     where: {email},
@@ -56,7 +57,7 @@ class cartController {
 
     async GetAll(req, res, next) {
         try {
-            const {email} = req.body
+            const {email} = req.body.params
             const user = await User.findOne(
                 {
                     where: {email},

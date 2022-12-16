@@ -6,10 +6,11 @@ import styles from './CartItem.module.scss';
 import plus from '../../assets/plus.svg';
 import minus from '../../assets/minus.svg';
 import cross from '../../assets/cross.svg'
+import { addDeviceToCart, deleteOneDevice } from '../../http/cartAPI';
 
 
 const CartItem = ({device}) => {
-  const {name, rating, price, id, img} = device
+  const {name, price, id, img} = device
   return (
     <div className={styles.item}>
       <div className={styles.imgBlock}>
@@ -23,15 +24,14 @@ const CartItem = ({device}) => {
         src={minus} 
         alt='minus'/></div>
         <b>count</b>
-        <div><img className={styles.img} src={plus}
+        <div onClick={() => addDeviceToCart(id)}><img className={styles.img} src={plus}
         alt='plus'/></div>
       </div>
       <div className={styles.price}>
         {/* <b>{price * count} ₽</b> */}
         <b>{price} BYN</b>
       </div>
-      <div className={styles.removeOne} >
-      {/* onClick={() => dispatch(removeIndividual({id, count}))} */}
+      <div className={styles.removeOne} onClick={() => deleteOneDevice(id)}>
         <div>
           <img className={styles.img} src={cross}
           alt='cross'/>

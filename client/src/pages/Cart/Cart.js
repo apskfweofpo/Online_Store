@@ -9,19 +9,15 @@ import styles from './Cart.module.scss'
 import { fetchDevicesFromCart } from '../../http/cartAPI';
 
 
-const Cart= observer(() => {
+const Cart = observer(() => {
   const [formVisibility, setFormVisibility] = React.useState(false)
-  const {cart} = useContext(Context);
+  const [cart, setCart] = React.useState([])
 
   React.useEffect(() => {
-    fetchDevicesFromCart()
-    .then(data => {
-        cart.setItems(data.rows)
-        cart.setTotalCount(data.count)
-    })
+    fetchDevicesFromCart().then(data => setCart(data))
   }, [])
 
-  const totalSum = cart.items.reduce((sum, item) => sum + item.price, 0);
+  const totalSum = cart.reduce((sum, item) => sum + item.price, 0);
 
 //   if(!items.length){
 //     return(<CartEmpty/>);
@@ -124,13 +120,13 @@ const Cart= observer(() => {
             </div>
           </div>
           <div className={styles.items}>
-            {cart.items.map(device => <CartItem key={device.id} device={device}/>)}
+            {cart.map(device => <CartItem key={device.id} device={device}/>)}
           </div>
           <div className={styles.bottom}>
             <div className={styles.details}>
               <span>
                 {' '}
-                Всего товаров: <b>{cart.totalCount} шт.</b>{' '}
+                Всего товаров: <b>{cart.length} шт.</b>{' '}
               </span>
               <span>
                 {' '}

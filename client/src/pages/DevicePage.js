@@ -3,6 +3,7 @@ import {Button, Card, Col, Container, Form, Image, Row} from "react-bootstrap";
 import bigStar from "../assets/BigStar.png" 
 import {useParams} from 'react-router-dom'
 import { fetchOneDevice } from '../http/deviceAPI';
+import { addDeviceToCart } from '../http/cartAPI';
 
 const DevicePage = () => {
     const [device, setDevice] = useState({info: []})
@@ -34,7 +35,7 @@ const DevicePage = () => {
                         style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
                     >
                         <h3>От: {device.price} руб.</h3>
-                        <Button variant={"outline-dark"}>Добавить в корзину</Button>
+                        <Button variant={"outline-dark"} onClick={() => addDeviceToCart(device.id)}>Добавить в корзину</Button>
                     </Card>
                 </Col>
             </Row>
