@@ -10,7 +10,7 @@ import { addDeviceToCart, deleteOneDevice } from '../../http/cartAPI';
 
 
 const CartItem = ({device}) => {
-  const {deviceId, cartId} = device
+  const {id, name, img, price} = device
 
 
 
@@ -40,8 +40,7 @@ const CartItem = ({device}) => {
           alt='cross'/>
         </div>
       </div>
-  </div>
-  )
+  </div>)
 }
 
 export default CartItem ;

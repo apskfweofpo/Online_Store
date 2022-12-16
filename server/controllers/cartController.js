@@ -10,7 +10,7 @@ class cartController {
 
     async addDevice(req, res, next) {
         try {
-            const {email, deviceId} = req.body.params
+            const {email, deviceId} = req.body
             console.log('Controller: ', email, deviceId);
             const user = await User.findOne(
                 {
@@ -32,7 +32,7 @@ class cartController {
 
     async deleteDevice(req, res, next) {
         try {
-            const {email, deviceId} = req.body.params
+            const {email, deviceId} = req.body
             const user = await User.findOne(
                 {
                     where: {email},
@@ -44,11 +44,11 @@ class cartController {
                 },
             )
             const deletedDevice = await CartDevice.destroy(
-                {where:
-                        {cartId:cart.id, deviceId}
+                {
+                    where:
+                        {cartId: cart.id, deviceId}
                 }
-
-             )
+            )
             return res.json(deletedDevice)
         } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -57,7 +57,8 @@ class cartController {
 
     async GetAll(req, res, next) {
         try {
-            const {email} = req.body.params
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            const {email} = req.body
             const user = await User.findOne(
                 {
                     where: {email},
@@ -69,16 +70,48 @@ class cartController {
                 },
             )
             const allDevices = await CartDevice.findAll(
-                {where:
-                        {cartId:cart.id}
+                {
+                    where:
+                        {cartId: cart.id}
                 }
-
             )
-            return  res.json(allDevices)
+
+            let idDevices = []
+
+            allDevices.forEach(function (item, i, arr) {
+                console.log(i + ": " + item.deviceId)
+                idDevices.push(item.deviceId)
+            })
+            console.log(idDevices)
+            let infoDevices = []
+
+
+
+            /*await idDevices.forEach( function (item, i, arr) {
+                console.log(i + ": " + item)
+                const dev = await this.finddev(item)
+                infoDevices.push(dev)
+                console.log(infoDevices)
+            })*/
+            for (const idDevice of idDevices) {
+                const content  = await  Device.findOne(
+                    {
+                        where: {id: idDevice}
+                    }
+                )
+                infoDevices.push(content)
+                console.log(infoDevices);
+            }
+
+            return res.json(infoDevices)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
     }
+
+
+
+
 }
 
 module.exports = new cartController()
