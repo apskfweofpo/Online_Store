@@ -10,7 +10,10 @@ import { addDeviceToCart, deleteOneDevice } from '../../http/cartAPI';
 
 
 const CartItem = ({device}) => {
-  const {name, price, id, img} = device
+  const {deviceId, cartId} = device
+
+
+
   return (
     <div className={styles.item}>
       <div className={styles.imgBlock}>

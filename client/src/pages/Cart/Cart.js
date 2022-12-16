@@ -16,7 +16,7 @@ const Cart = observer(() => {
   React.useEffect(() => {
     fetchDevicesFromCart().then(data => setCart(data))
   }, [])
-
+    console.log(cart)
   const totalSum = cart.reduce((sum, item) => sum + item.price, 0);
 
 //   if(!items.length){

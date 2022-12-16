@@ -4,7 +4,7 @@ const cartController = require('../controllers/cartController')
 
 
 router.post('/add', cartController.addDevice)
-router.delete('/delete', cartController.deleteDevice)
-router.get ('/all', cartController.GetAll)
+router.post('/delete', cartController.deleteDevice)
+router.post ('/all', cartController.GetAll)
 
 module.exports = router
