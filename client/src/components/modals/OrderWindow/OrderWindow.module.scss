@@ -1,25 +1,24 @@
 @mixin fields {
-    border: 1px solid #fe5f1e;
+    border: 1px solid black;
     font-size: 16px;
     border-radius: 10px;
     max-width: 600px;
     padding: 12px 80px 12px 14px;
     &:hover{
         transition: 0.2s ease 0.1s;
-        box-shadow: 5px 5px indianred;
+        box-shadow: 5px 5px rgb(148, 147, 147);
     }
 }
 
 @mixin payMethods{
     color: black;
     padding: 16px 20px;
-    border-radius: 20px;
-    background-color: #fe5d1e58;
-    border: 1px solid #fe5f1e;
+    background-color: white;
+    border: 1px solid rgb(243, 243, 152);
     &:hover{
         transition: 0.2s ease 0.1s;
-        color: white;
-        background-color: #fe5f1e;
+        color: orange;
+        background-color: rgb(243, 243, 152);
     }
 }
 
@@ -30,7 +29,7 @@
     top: 0;
     left: 0;
     z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.6);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,8 +38,7 @@
 .wrapper{
     padding: 4rem;
     background-color: white;
-    border-radius: 2rem;
-    border: 3px dashed #fe5f1e;
+    border: 3px solid orange;
 }
 .fields{
     display: flex;
@@ -87,8 +85,11 @@
 
 .selected{
     @include payMethods();
-    background-color: #fe5f1e;
-    color: white;
+    transition: 0.3s ease-in 0s;
+    border-color: white;
+    background-color: rgb(243, 243, 152);
+    color: #fe5f1e;
+    
 }
 
 .caption{
@@ -105,16 +106,17 @@
 }
 .button{
     padding: 20px 30px;
-    background-color: #fe5f1e;
-    color: white;
+    background-color: white;
+    color: black;
     border-radius: 20px;
     font-weight: 700;
     font-size: 20px;
-    border-color: #fe5f1e;
+    border-color: black;
     &:hover{
         transition: 0.3s ease-in 0s;
         border-color: white;
-        background-color: #c53800;
+        background-color: rgb(243, 243, 152);
+        color: #fe5f1e;
     }
 }
 .orderPrice{
@@ -122,7 +124,7 @@
     font-weight: 500;
     span{
         font-weight: 700;
-        color: #fe5f1e;
+        color: red;
         font-size: 20px;
     }
 }

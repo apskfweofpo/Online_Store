@@ -11,7 +11,12 @@ export const fetchDevicesFromCart = async () => {
     return data
 }
 
-export const deleteOneDevice = async (deviceId) => {
-    const {data} = await $authHost.post('api/cart/delete',{params: {email: localStorage.email, deviceId}})
+export const deleteOneDevice = async (logId) => {
+    const {data} = await $authHost.post('api/cart/delete', {email: localStorage.email, logId})
+    return data
+}
+
+export const deleteAllDevices = async () =>{
+    const {data} = await $authHost.post('api/cart/deleteAll', {email: localStorage.email})
     return data
 }

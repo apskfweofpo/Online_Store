@@ -6,29 +6,29 @@ import React from 'react'
 import styles from './OrderWindow.module.scss'
 
 
-const OrderWindow = ({setFormVisibility}) => {
+const OrderWindow = ({setFormVisibility, totalSum}) => {
 
     const [payMethod, setPayMethod] = React.useState("card");
 
     const sendOrder = async (orderParams) => {
         const {name, phone, address, comment, paymentType, price, description} = orderParams;
         
-        await axios.post(`http://localhost:8080/orders`,
-        {params: {
-            description,
-            name,
-            phone,
-            address,
-            comment,
-            price,
-            paymentType
-        }})
-        .then(() => {
-            alert("Заказ успешно оформлен. Скоро менеджер с вами свяжется. Спасибо, что выбрали нас!")
-        })
-        .catch(() => {
-            alert("Ошибка создания заказа: Отправлены некорректные данные!")
-        })
+        // await axios.post(`http://localhost:8080/orders`,
+        // {params: {
+        //     description,
+        //     name,
+        //     phone,
+        //     address,
+        //     comment,
+        //     price,
+        //     paymentType
+        // }})
+        // .then(() => {
+        //     alert("Заказ успешно оформлен. Скоро менеджер с вами свяжется. Спасибо, что выбрали нас!")
+        // })
+        // .catch(() => {
+        //     alert("Ошибка создания заказа: Отправлены некорректные данные!")
+        // })
     };
 
     // const createDescription = () =>{
@@ -51,7 +51,6 @@ const OrderWindow = ({setFormVisibility}) => {
         name: "",
         phone: "",
         address: "",
-        comment: "",
         price: 0,
         paymentType: ""
     });
@@ -87,23 +86,22 @@ const OrderWindow = ({setFormVisibility}) => {
     <>
         <div className={styles.container} onClick={() => setFormVisibility(false)}>
             <form className={styles.wrapper} onClick={(event) => event.stopPropagation()} onSubmit={(event) => createOrder(event)}>
-                <h2 className={styles.caption}>Заполните данные</h2>
+                <h2 className={styles.caption}>Оформление заказа</h2>
                 <ul className={styles.fields}>
                     <li className={styles.field}>
-                        <div className={styles.fieldName}>Ваше имя *</div>
-                        <input id="name" type="text" className={styles.fieldInput} placeholder="Егор" onChange={(event)=>handleChange(event)}/>
+                        <div className={styles.fieldName}>Имя </div>
+                        <input id="name" type="text" className={styles.fieldInput} placeholder="Иван" onChange={(event)=>handleChange(event)}/>
+                        <div>От 3 символов</div>
                     </li>
                     <li className={styles.field}>
-                        <div className={styles.fieldName}>Номер телефона *</div>
-                        <input id="phone" className={styles.fieldInput} type="text" placeholder='+375(XX)123-45-67' onChange={(event)=>handleChange(event)}/>
+                        <div className={styles.fieldName}>Номер телефона</div>
+                        <input id="phone" className={styles.fieldInput} type="text" placeholder='+375331234567' onChange={(event)=>handleChange(event)}/>
+                        <div>Цифры от 0-9, символ + в начале, длина 12, код 29/33</div>
                     </li>
                     <li className={styles.field}>
-                        <div className={styles.fieldName}>Адрес доставки *</div>
-                        <textarea id="address" className={styles.address} placeholder='улица Сурганова 37/2, кв. 12' onChange={(event)=>handleChange(event)}/>
-                    </li>
-                    <li className={styles.field}>
-                        <div className={styles.fieldName}>Комментарии к заказу</div>
-                        <textarea id="comment" className={styles.comment} placeholder="Побольше салфеток и побыстрее!" onChange={(event)=>handleChange(event)}/>
+                        <div className={styles.fieldName}>Адрес доставки</div>
+                        <textarea id="address" className={styles.address} placeholder='Минск, улица Богдана Хмельницкого 46' onChange={(event)=>handleChange(event)}/>
+                        <div>Строка длиной от 20 символов</div>
                     </li>
                     <li className={styles.field}>
                         <div className={styles.fieldName}>Выберите способ оплаты</div>
@@ -114,8 +112,8 @@ const OrderWindow = ({setFormVisibility}) => {
                     </li>
                 </ul>
                 <div className={styles.bottom}>
-                    <div className={styles.orderPrice}>Сумма заказа: <span> </span> ₽</div>
-                    <button type='submit' className={styles.button}>Заказать</button>
+                    <div className={styles.orderPrice}>Сумма корзины товаров: <span>{totalSum}</span> BYN</div>
+                    <button type='submit' className={styles.button}>Отправить</button>
                 </div>
             </form>
         </div>

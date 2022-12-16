@@ -3,17 +3,19 @@ import React from 'react'
 import {Image} from "react-bootstrap";
 
 import styles from './CartItem.module.scss';
-import plus from '../../assets/plus.svg';
-import minus from '../../assets/minus.svg';
 import cross from '../../assets/cross.svg'
-import { addDeviceToCart, deleteOneDevice } from '../../http/cartAPI';
+import { deleteOneDevice } from '../../http/cartAPI';
 
 
-const CartItem = ({device}) => {
+const CartItem = ({device, logId, deleteOne}) => {
   const {id, name, img, price} = device
 
-
-
+  const deleteItemFromCart = (id) =>{
+      deleteOneDevice(id)
+      deleteOne(id)
+      window.location.reload()
+      alert("Товар успешно убран из корзины")
+  }
   return (
     <div className={styles.item}>
       <div className={styles.imgBlock}>
@@ -22,22 +24,12 @@ const CartItem = ({device}) => {
       <div className={styles.name}>
         <h3>{name}</h3>
       </div>
-      <div className={styles.counter}>
-        <div><img className={styles.img} 
-        src={minus} 
-        alt='minus'/></div>
-        <b>count</b>
-        <div onClick={() => addDeviceToCart(id)}><img className={styles.img} src={plus}
-        alt='plus'/></div>
-      </div>
       <div className={styles.price}>
-        {/* <b>{price * count} ₽</b> */}
         <b>{price} BYN</b>
       </div>
-      <div className={styles.removeOne} onClick={() => deleteOneDevice(id)}>
+      <div className={styles.removeOne} onClick={() => deleteItemFromCart(logId)}>
         <div>
-          <img className={styles.img} src={cross}
-          alt='cross'/>
+          <img className={styles.img} src={cross} alt='cross'/>
         </div>
       </div>
   </div>)
