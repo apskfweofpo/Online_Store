@@ -16,6 +16,6 @@ module.exports = function (req, res, next) {
         next()
     } catch (e) {
         console.log(e)
-        res.status(401).json({ message: "Eror 401" })
+        res.status(401).json({ message: "Error 401" })
     }
 }

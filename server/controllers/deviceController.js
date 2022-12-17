@@ -8,7 +8,6 @@ class DeviceController {
     async create(req, res, next) {
         try {
             const deviceValidator = new DeviceValidator()
-            console.log(req.body)
             if( deviceValidator.validateDeviceParams(req.body)){
                 let { name, price, brandId, typeId, info } = req.body
                 const { img } = req.files
