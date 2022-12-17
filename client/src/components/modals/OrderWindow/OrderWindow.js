@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import {createOrder} from '../../../http/orderApi'
+import {addOrder} from '../../../http/orderApi'
 
 import styles from './OrderWindow.module.scss'
 
@@ -9,25 +9,25 @@ const OrderWindow = ({setFormVisibility, totalSum}) => {
 
     const [payMethod, setPayMethod] = React.useState("card");
 
-    const sendOrder = async (orderParams) => {
+    const  sendOrder = async (orderParams) => {
         const {name, phone, address, comment, paymentType, price, description} = orderParams;
         
-        // await axios.post(`http://localhost:8080/orders`,
-        // {params: {
-        //     description,
-        //     name,
-        //     phone,
-        //     address,
-        //     comment,
-        //     price,
-        //     paymentType
-        // }})
-        // .then(() => {
-        //     alert("Заказ успешно оформлен. Скоро менеджер с вами свяжется. Спасибо, что выбрали нас!")
-        // })
-        // .catch(() => {
-        //     alert("Ошибка создания заказа: Отправлены некорректные данные!")
-        // })
+        await addOrder(
+        {
+            description,
+            name,
+            phone,
+            address,
+            comment,
+            price,
+            paymentType
+        })
+        .then(() => {
+            alert("Заказ успешно оформлен. Скоро менеджер с вами свяжется. Спасибо, что выбрали нас!")
+        })
+        .catch(() => {
+            alert("Ошибка создания заказа: Отправлены некорректные данные!")
+        })
     };
 
     // const createDescription = () =>{
@@ -72,7 +72,7 @@ const OrderWindow = ({setFormVisibility, totalSum}) => {
         e.preventDefault()
 
         try {
-            sendOrder(form)
+            await sendOrder(form)
         } catch (error) {
             console.log(error);
             
