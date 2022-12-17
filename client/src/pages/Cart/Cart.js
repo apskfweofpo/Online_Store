@@ -41,7 +41,7 @@ const Cart = observer(() => {
   
   return (
   <>
-    {formVisibility && (<OrderWindow setFormVisibility={setFormVisibility} totalSum={totalSum}/>)}
+    {formVisibility && (<OrderWindow setFormVisibility={setFormVisibility} totalSum={totalSum} cart={cart}/>)}
     <div className={styles.container}> 
       <div className={styles.cart}>
           <div className={styles.top}>

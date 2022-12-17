@@ -1,45 +1,48 @@
-
+const payMethods = ["cash", "card"]
+const phoneMasks = ["+37529", "+37533"]
 class OrderValidator{
-    phoneMasks
-
-    constructor(){
-        this.phoneMasks = ["37529", "37533"]
-    }
-
-    public validateOrderParams(params:CreateOrderParams) {
-        const {name, phone, address, description, paymentType} = params
-
-        return (this.validatePhone(phone) && this.validatePaymentType(paymentType)
+    validateOrderParams(params) {
+        const {name, telephone_number, address, description, type_Payment, amount_Payment} = params
+        
+        return (this.validatePhone(telephone_number) && this.validatePaymentType(type_Payment)
             && this.validateStringLength(address) && this.validateStringLength(description)
-            && this.validateIsNotEmpty({name, phone, address, description})) ? true : false
+            && this.validateIsNotEmpty({name, type_Payment, address, description})
+            && this.validatePrice(amount_Payment)) ? true : false
     }
 
-    public validatePhone(phone: string){//
+    validatePhone(phone){//
         let counter = 0
-        for(let mask in this.phoneMasks){
-            if(phone.indexOf(this.phoneMasks[mask]) !== -1){
+
+        for(let mask in phoneMasks){
+            console.log("\n\n=========================MAsk=============\n\n", mask);
+            if((phone.indexOf(phoneMasks[mask])) > -1){
+                console.log("\n\n=====================LOG====================\n\n",phone.indexOf(phoneMasks[mask]))
                 counter++
             }
         }
 
-        return counter > 0 ? true : false
+        return counter > 0 && phone.length === 13 ? true : false
     }
 
-    public validatePaymentType(type: string){//
-        return (type.toLowerCase() === payMethods.byCard || type.toLowerCase() === payMethods.byCash) ? true : false
+    validatePaymentType(type){//
+        return (type.toLowerCase() === payMethods[1] || type.toLowerCase() === payMethods[0]) ? true : false
     }
 
-    public validateStringLength(text: string){//
+    validateStringLength(text){//
         return text.length >= 20 ? true : false
     }
 
-    public validateIsNotEmpty({...fields}){//
+    validateIsNotEmpty({...fields}){//
         let counter = 0
         for(let prop in fields){
             if(fields[prop] !== "" && fields[prop].toString().length > 0) counter++
         }
         return counter === Object.keys(fields).length ? true : false
     }
+    validatePrice(price){
+        console.log("\n\n===============PRICE============\n\n", price, typeof(price));
+        return (price > 0 && price.toString().length > 0)
+    }
 }
 
-export default OrderValidator
+module.exports = OrderValidator

@@ -12,6 +12,15 @@ const DevicePage = () => {
         fetchOneDevice(id).then(data => setDevice(data))
     }, [])
 
+    const addToCart = async (id) =>{
+        try{
+            await addDeviceToCart(id).then(() => alert("Товар добавлен в корзину!"))
+        }catch(e){
+            alert("Ошибка: товар не был добавлен")
+        }
+        
+    }   
+
     return (
         <Container className="mt-3">
             <Row>
@@ -35,7 +44,7 @@ const DevicePage = () => {
                         style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
                     >
                         <h3>От: {device.price} руб.</h3>
-                        <Button variant={"outline-dark"} onClick={() => addDeviceToCart(device.id)}>Добавить в корзину</Button>
+                        <Button variant={"outline-dark"} onClick={() => addToCart(device.id)}>Добавить в корзину</Button>
                     </Card>
                 </Col>
             </Row>

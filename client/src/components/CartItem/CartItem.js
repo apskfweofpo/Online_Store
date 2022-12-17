@@ -10,8 +10,8 @@ import { deleteOneDevice } from '../../http/cartAPI';
 const CartItem = ({device, logId, deleteOne}) => {
   const {id, name, img, price} = device
 
-  const deleteItemFromCart = (id) =>{
-      deleteOneDevice(id)
+  const deleteItemFromCart = async (id) =>{
+      await deleteOneDevice(id)
       deleteOne(id)
       window.location.reload()
       alert("Товар успешно убран из корзины")

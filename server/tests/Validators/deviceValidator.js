@@ -21,10 +21,10 @@ class DeviceValidator{
 
     }
     validatePriceRange(value){
-        return value > this.rangePriceMask[0] && value < this.rangePriceMask[1]? true:false
+        return value > this.rangePriceMask[0] && value < this.rangePriceMask[1] ? true:false
     }
     validateNameLength(name){
-        return name.toString().length>=1 && name.toString().length<=20? true: false
+        return name.toString().length>=1 && name.toString().length<=50? true: false
     }
 
     async validateTypeId(typeId) {

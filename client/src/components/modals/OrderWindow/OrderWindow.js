@@ -5,22 +5,21 @@ import {addOrder} from '../../../http/orderApi'
 import styles from './OrderWindow.module.scss'
 
 
-const OrderWindow = ({setFormVisibility, totalSum}) => {
+const OrderWindow = ({setFormVisibility, totalSum, cart}) => {
 
     const [payMethod, setPayMethod] = React.useState("card");
 
     const  sendOrder = async (orderParams) => {
-        const {name, phone, address, comment, paymentType, price, description} = orderParams;
+        const {description, name, phone, address, price, paymentType} = orderParams;
         
         await addOrder(
         {
-            description,
             name,
-            phone,
+            telephone_number: phone,
             address,
-            comment,
-            price,
-            paymentType
+            type_Payment: paymentType,
+            amount_Payment: price,
+            description,
         })
         .then(() => {
             alert("Заказ успешно оформлен. Скоро менеджер с вами свяжется. Спасибо, что выбрали нас!")
@@ -30,14 +29,14 @@ const OrderWindow = ({setFormVisibility, totalSum}) => {
         })
     };
 
-    // const createDescription = () =>{
-    //     let description = ""
-    //     description += items.map((item) => {
-    //         return `{Название: ${item.title}, Тип: ${pizzaTypes[item.types]}, Размер: ${pizzaSizes[item.sizes]}, Количество: ${item.count}}, `
-    //     })
+    const createDescription = () =>{
+        let description = ""
+        description += cart.map((item) => {
+            return `{Название: ${item.dataValues.name}, Цена: ${item.dataValues.price}}, `
+        })
 
-    //     return description
-    // }
+        return description
+    }
 
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
@@ -45,13 +44,12 @@ const OrderWindow = ({setFormVisibility, totalSum}) => {
     },  [])
 
     const [form, setForm] = React.useState({
-        // description: createDescription(),
-        description: '',
+        description: createDescription(),
         name: "",
         phone: "",
         address: "",
-        price: 0,
-        paymentType: ""
+        price: totalSum,
+        paymentType: payMethod
     });
 
 
