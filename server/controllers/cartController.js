@@ -112,14 +112,6 @@ class cartController {
            
             let infoDevices = []
 
-
-
-            /*await idDevices.forEach( function (item, i, arr) {
-                console.log(i + ": " + item)
-                const dev = await this.finddev(item)
-                infoDevices.push(dev)
-                console.log(infoDevices)
-            })*/
             for (const idDevice of idDevices) {
                 const content  = await  Device.findOne(
                     {
