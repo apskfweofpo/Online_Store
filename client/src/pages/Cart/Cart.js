@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
@@ -6,30 +6,42 @@ import {Context} from "../../index";
 import CartItem from '../../components/CartItem/CartItem';
 import OrderWindow from '../../components/modals/OrderWindow/OrderWindow';
 import styles from './Cart.module.scss'
-import { fetchDevicesFromCart } from '../../http/cartAPI';
+import { deleteAllDevices, fetchDevicesFromCart } from '../../http/cartAPI';
 
 
 const Cart = observer(() => {
   const [formVisibility, setFormVisibility] = React.useState(false)
   const [cart, setCart] = React.useState([])
-
+  let totalSum = cart.reduce((sum, item) => sum + item.dataValues.price, 0)
   React.useEffect(() => {
-    fetchDevicesFromCart().then(data => setCart(data))
+    fetchDevicesFromCart().then(data => setCart(data));
+    
   }, [])
-    console.log(cart)
-  const totalSum = cart.reduce((sum, item) => sum + item.price, 0);
-
-//   if(!items.length){
-//     return(<CartEmpty/>);
-//   }
+  //console.log("\n------------------Log from cart----------------------\n", cart)
 
   const showModalWindow = () => {
     setFormVisibility(!formVisibility)
   }
+
+  const deleteOneCartItem = (logId) =>{
+    setCart(cart.map(item => {
+      if (item.logId !== logId) {
+        //console.log("---------------------------Item from setter--------------------\n", item)
+         return item
+      }
+   }));
+    totalSum = cart.reduce((sum, item) => item.logId !== logId ? sum + item.dataValues.price : sum + 0, 0)
+  }
+
+  const deleteCartItems = () => {
+    deleteAllDevices()
+    setCart([])
+    totalSum = 0
+  }
   
   return (
   <>
-    {formVisibility && (<OrderWindow setFormVisibility={setFormVisibility}/>)}
+    {formVisibility && (<OrderWindow setFormVisibility={setFormVisibility} totalSum={totalSum}/>)}
     <div className={styles.container}> 
       <div className={styles.cart}>
           <div className={styles.top}>
@@ -74,7 +86,7 @@ const Cart = observer(() => {
               </svg>
               Корзина
             </h2>
-            <div className={styles.clearAll}>
+            <div className={styles.clearAll} onClick={() => deleteCartItems()}>
               <svg
                 width="20"
                 height="20"
@@ -120,7 +132,8 @@ const Cart = observer(() => {
             </div>
           </div>
           <div className={styles.items}>
-            {cart.map(device => <CartItem key={device.id} device={device}/>)}
+            {cart.length ? cart.map(device => <CartItem deleteOne={deleteOneCartItem} key={device.logId} device={device.dataValues} logId={device.logId}/>) 
+            : (<div className={styles.noinfo}>В корзине пусто</div>)}
           </div>
           <div className={styles.bottom}>
             <div className={styles.details}>

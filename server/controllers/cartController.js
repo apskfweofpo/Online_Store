@@ -11,7 +11,7 @@ class cartController {
     async addDevice(req, res, next) {
         try {
             const {email, deviceId} = req.body
-            console.log('Controller: ', email, deviceId);
+            //console.log('Controller: ', email, deviceId);
             const user = await User.findOne(
                 {
                     where: {email},
@@ -32,7 +32,7 @@ class cartController {
 
     async deleteDevice(req, res, next) {
         try {
-            const {email, deviceId} = req.body
+            const {email, logId} = req.body
             const user = await User.findOne(
                 {
                     where: {email},
@@ -46,7 +46,7 @@ class cartController {
             const deletedDevice = await CartDevice.destroy(
                 {
                     where:
-                        {cartId: cart.id, deviceId}
+                        {cartId: cart.id, id: logId}
                 }
             )
             return res.json(deletedDevice)
@@ -54,10 +54,36 @@ class cartController {
             next(ApiError.badRequest(e.message))
         }
     }
+    async deleteAll(req, res, next){
+        try {
+            const {email} = req.body
+            //console.log("\n=================\nEmail: \n", email);
+            const user = await User.findOne(
+                {
+                    where: {email},
+                },
+            )
+            //console.log("\n=================\nUser: \n", user);
+            const cart = await Cart.findOne(
+                {
+                    where: {userId: user.id},
+                },
+            )
+            //console.log("\n=================\nCart: \n", cart);
+            const deletedDevices = await CartDevice.destroy(
+                {
+                    where: {cartId: cart.id}
+                }
+            )
 
+            return res.json(deletedDevices)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+
+    }
     async GetAll(req, res, next) {
         try {
-            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             const {email} = req.body
             const user = await User.findOne(
                 {
@@ -79,10 +105,11 @@ class cartController {
             let idDevices = []
 
             allDevices.forEach(function (item, i, arr) {
-                console.log(i + ": " + item.deviceId)
-                idDevices.push(item.deviceId)
+                idDevices.push({id: item.id, deviceId: item.deviceId})
             })
-            console.log(idDevices)
+            
+           // console.log(idDevices) //     [{ id: 50, deviceId: 1 }, { id: 51, deviceId: 1 }, { id: 52, deviceId: 1 }]
+           
             let infoDevices = []
 
 
@@ -96,13 +123,12 @@ class cartController {
             for (const idDevice of idDevices) {
                 const content  = await  Device.findOne(
                     {
-                        where: {id: idDevice}
+                        where: {id: idDevice.deviceId}
                     }
                 )
-                infoDevices.push(content)
-                console.log(infoDevices);
+                infoDevices.push({...content, logId: idDevice.id})
             }
-
+            //console.log("------------------Devices from DB-----------------", infoDevices);
             return res.json(infoDevices)
         } catch (e) {
             next(ApiError.badRequest(e.message))
