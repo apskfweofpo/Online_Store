@@ -1,7 +1,6 @@
-
 import axios from 'axios';
 import React from 'react'
-
+import {createOrder} from '../../../http/orderApi'
 
 import styles from './OrderWindow.module.scss'
 
