@@ -3,6 +3,8 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {Pagination} from "react-bootstrap";
 
+import styles from './Pagination.module.scss'
+
 const Pages = observer(() => {
     const {device} = useContext(Context)
     const pageCount = Math.ceil(device.totalCount / device.limit)
@@ -19,6 +21,7 @@ const Pages = observer(() => {
                     key={page}
                     active={device.page === page}
                     onClick={() => device.setPage(page)}
+                    className={styles.pagination}
                 >
                     {page}
                 </Pagination.Item>

@@ -8,11 +8,12 @@
 }
 
 .cart{
+    border-radius: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: 2px solid orange;
-    border-radius: 4px;
+    
 
 }
 
@@ -22,7 +23,7 @@
     flex-direction: row;
     margin: 0 auto;
     text-align: left;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 30px;
     border-bottom: 2px solid orange;
@@ -34,7 +35,18 @@
 
 }
 .buttonsBar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     
+}
+
+.title{
+    letter-spacing: 6px;
+    font-size: 36px;    
+    font-weight: 700;
+    margin-bottom: 20px;
 }
 
 
@@ -52,18 +64,21 @@
 
 
 .clearAll{
+    margin-right: 20px;
     text-align: center;
     justify-content: center;
     align-items: center;
     padding: 10px 14px;
     border-radius: 10px;
+    border: 2px solid orange;
+    background-color: white;
     span{
-        margin-left: 10px;
-        color: rgb(156, 156, 156);
+        color: black;
     }
     &:hover{
         transition: 0.3s ease 0s;
-        background-color: rgb(136, 125, 125);
+        background-color:orange;    
+        border: 2px solid rgb(97, 105, 250);
         span{
             color: white;
         }
@@ -87,31 +102,50 @@
 }
 @mixin button{
     padding: 10px 20px;
-    border: 1px solid black;
     border-radius: 6px;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    border-color: white;
 }
 
 .buttonBack{
-    @include button();
-    margin-right: 40px;
+    background-color: rgb(97, 105, 250);
+    padding: 20px 30px;
+    font-weight: 700;
+    border-radius: 1rem;
     span{
-        margin-left: 8px;
-        color: rgb(191, 190, 190);
+        color: white;
     }
-}
-.payButton{
-    @include button();
-    background-color: beige;
-
     &:hover{
         transition: 0.3s ease 0s;
-        background-color: orange;
+        background-color: rgb(255, 166, 0);
         span{
             color: white;
         }
-        border-color: white; 
+        border-color: white;
     }
+    
+}
+.payButton{
+    @include button();
+    background-color: white;
+    border: 1px solid rgb(97, 105, 250);
+
+    &:hover{
+        transition: 0.3s ease 0s;
+        background-color: rgb(97, 105, 250);
+        span{
+            color: white;
+        }
+        border-color: orange; 
+    }
+}
+
+.buttonBackWrapper{
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

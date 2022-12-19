@@ -8,7 +8,7 @@ import {Button} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import Container from "react-bootstrap/Container";
 import {useHistory} from 'react-router-dom'
-import logoFPS from "../../assets/Logo.png"
+import logoDevicer from "../../assets/logoDevicer.png"
 import styles from './NavBar.module.scss'
 
 
@@ -24,7 +24,7 @@ const NavBar = observer(() => {
     return (
         <Navbar className={styles.navbar} variant="dark">
             <Container>
-                <NavLink style={{color:'white'}} to={SHOP_ROUTE}><img className={styles.logo}src={logoFPS} alt="КупиФПС"/></NavLink>
+                <NavLink style={{color:'white'}} to={SHOP_ROUTE}><img className={styles.logo}src={logoDevicer} alt="Devicer"/></NavLink>
                 <Nav className={styles.navButtons} style={{color: 'white'}}>
 
                     <Button className={styles.auth} variant={"outline-light"} onClick={() => history.push(CART_ROUTE)}>

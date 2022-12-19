@@ -25,37 +25,31 @@ const DevicePage = () => {
         <Container className="mt-3">
             <Row>
                 <Col md={4}>
-                    <Image width={300} height={300} src={process.env.REACT_APP_API_URL + device.img}/>
-                </Col>
-                <Col md={4}>
+                    <Row><Image width={300} height={300} src={process.env.REACT_APP_API_URL + device.img}/></Row>
                     <Row className="d-flex flex-column align-items-center">
-                        <h2>{device.name}</h2>
-                        <div
-                            className="d-flex align-items-center justify-content-center"
-                            style={{background: `url(${bigStar}) no-repeat center center`, width:240, height: 240, backgroundSize: 'cover', fontSize:64}}
-                        >
-                            {device.rating}
-                        </div>
+                        
                     </Row>
-                </Col>
-                <Col md={4}>
-                    <Card
+                    <Row style={{alignItems: "center", justifyContent: "center"}}><Card
                         className="d-flex flex-column align-items-center justify-content-around"
-                        style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
+                        style={{marginTop: 20, width: 300, height: 200, fontSize: 20, border: '5px solid rgb(97, 105, 250)'}}
                     >
-                        <h3>От: {device.price} руб.</h3>
-                        <Button variant={"outline-dark"} onClick={() => addToCart(device.id)}>Добавить в корзину</Button>
-                    </Card>
+                        <h2 style={{marginBottom: 20, textAlign: 'center'}}>{device.name}</h2>
+                        <h3 style={{textAlign: 'center'}}><span style={{fontWeight: 900}}>{device.price}</span> $</h3>
+                        <Button style={{borderRadius: "1rem", backgroundColor: 'rgb(117, 255, 216)', fontWeight: 600, color: 'grey', border: "1px solid black"}} onClick={() => addToCart(device.id)}>Добавить в корзину</Button>
+                    </Card></Row>
+                </Col>
+                <Col md={4} style={{width: 400}}>
+                    <Row className="d-flex flex-column m-3">
+                        <h2>Описание свойств товара:</h2>
+                        {device.info.map((info, index) =>
+                            <Row key={info.id} style={{background: index % 2 === 0 ? 'rgba(91, 255, 255, 0.38)' : 'transparent', padding: 10}}>
+                                {info.title}: {info.description}
+                            </Row>
+                        )}
+                    </Row>
                 </Col>
             </Row>
-            <Row className="d-flex flex-column m-3">
-                <h1>Характеристики</h1>
-                {device.info.map((info, index) =>
-                    <Row key={info.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
-                        {info.title}: {info.description}
-                    </Row>
-                )}
-            </Row>
+            
         </Container>
     );
 };

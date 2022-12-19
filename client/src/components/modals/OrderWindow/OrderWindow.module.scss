@@ -12,9 +12,16 @@
 
 @mixin payMethods{
     color: black;
-    padding: 16px 20px;
+    padding: 16px 40px;
     background-color: white;
     border: 1px solid rgb(243, 243, 152);
+    border-radius: 1rem;
+    font-weight: 700;
+    margin-right: 12px;
+    &:last-child{
+        margin-right: 0;
+    
+    }
     &:hover{
         transition: 0.2s ease 0.1s;
         color: orange;
@@ -36,13 +43,14 @@
     align-items: center;
 }
 .wrapper{
+    border-radius: 100px;
     padding: 4rem;
     background-color: white;
-    border: 3px solid orange;
+    border: 3px solid violet;
 }
 .fields{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     padding: 40px 100px;
 }
@@ -75,20 +83,21 @@
 .payments{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
 }
 .paymentType{
     @include payMethods();
+    
     
 }
 
 .selected{
     @include payMethods();
     transition: 0.3s ease-in 0s;
-    border-color: white;
-    background-color: rgb(243, 243, 152);
-    color: #fe5f1e;
+    border-color: orange;
+    background-color: rgb(97, 105, 250);
+    color: white;
     
 }
 
@@ -97,6 +106,7 @@
     font-weight: 900;
     font-size: 36px;
     letter-spacing: 1px;
+    text-align: center;
 }
 .bottom{
     display: flex;
@@ -105,26 +115,43 @@
     align-items: center;
 }
 .button{
-    padding: 20px 30px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
     background-color: white;
-    color: black;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 20px;
-    border-color: black;
+    border: 1px solid rgb(97, 105, 250);
+
     &:hover{
-        transition: 0.3s ease-in 0s;
-        border-color: white;
-        background-color: rgb(243, 243, 152);
-        color: #fe5f1e;
+        transition: 0.3s ease 0s;
+        background-color: rgb(97, 105, 250);
+        color: white;
+        span{
+            color: white;
+        }
+        border-color: orange; 
     }
 }
 .orderPrice{
     font-size: 18px;
     font-weight: 500;
     span{
-        font-weight: 700;
-        color: red;
+        font-size: 22px;
+        font-weight: 900;
+        color: black;
         font-size: 20px;
     }
+}
+
+.inputsCol{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    &:first-child{
+        margin-left: 0;
+    }
+}
+
+.valid{
+    
 }

@@ -4,18 +4,26 @@
     text-align: center;
 }
 .priceValue{
-    color: red;
+    color:rgb(255, 255, 0);
     font-weight: 700;
     font-size: 20px;
 }
 .card{
     padding: 20px 16px;
-    border: 2px solid beige;
-    background-color: white;
+    border: 2px solid gray;
+    background-color: rgb(170, 192, 205);
 }
 
 .rating{
     margin-right: 6px;
     color: gold;
     font-weight: 700;
+}
+.imgWrapper{
+    max-width: 130px;
+}
+
+.img{
+    width: 100%;
+    object-fit: contain;
 }

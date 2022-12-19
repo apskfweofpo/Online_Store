@@ -2,6 +2,8 @@
     padding: 20px;
     margin-right: 20px;
     border: 2px solid rgb(192, 192, 192);
+    color: rgb(100, 100, 100);
+    background-color: rgba(150, 246, 216, 0.798);
     &:last-child{
         margin-right: 0;
     }
@@ -14,7 +16,9 @@
 .active{
     @include brand();
     transition: 0.3s ease 0s;
-    border: 2px dashed orange;
+    background-color: rgba(60, 248, 188, 0.846);
+    
+    color: white
 }
 
 .bar{

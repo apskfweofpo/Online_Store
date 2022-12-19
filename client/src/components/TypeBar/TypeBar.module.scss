@@ -1,5 +1,5 @@
 @mixin type{
-    background-color: beige;
+    background-color: rgba(150, 246, 216, 0.798);
     color: rgb(100, 100, 100);
     text-align: left;
     font-size: 20px;
@@ -11,6 +11,6 @@
 .active{
     @include type();
     transition: 0.2s ease 0s;
-    background-color: antiquewhite;
-    color: rgb(60, 60, 60);
+    background-color: rgba(60, 248, 188, 0.846);
+    color: white;
 }

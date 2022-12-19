@@ -12,8 +12,6 @@ class DeviceValidator{
             return (
                 this.validatePriceRange(price)
                 && this.validateNameLength(name)
-             //   && await this.validateTypeId(brandId)
-              //  && await this.validateBrandId(typeId)
             ) ? true : false
         } catch (e) {
             console.log(e)
@@ -27,35 +25,35 @@ class DeviceValidator{
         return name.toString().length>=1 && name.toString().length<=50? true: false
     }
 
-    async validateTypeId(typeId) {
-        try {
-            const type = await Type.findOne(
-                {
-                    where: {id: typeId},
-                },
-            )
-            console.log(type)
-            if(type)
-                return true
-            else
-                return false
-        }catch (e) {
-            console.log(e)
-        }
+    // async validateTypeId(typeId) {
+    //     try {
+    //         const type = await Type.findOne(
+    //             {
+    //                 where: {id: typeId},
+    //             },
+    //         )
+    //         console.log(type)
+    //         if(type)
+    //             return true
+    //         else
+    //             return false
+    //     }catch (e) {
+    //         console.log(e)
+    //     }
 
-    }
+    // }
 
-     async validateBrandId(typeId) {
-         const brand = await Brand.findOne(
-             {
-                 where: {id: typeId},
-             },
-         )
-         console.log(brand)
-         if(brand)
-             return true
-         else
-             return false
-    }
+    //  async validateBrandId(typeId) {
+    //      const brand = await Brand.findOne(
+    //          {
+    //              where: {id: typeId},
+    //          },
+    //      )
+    //      console.log(brand)
+    //      if(brand)
+    //          return true
+    //      else
+    //          return false
+    // }
 }
 module.exports = DeviceValidator

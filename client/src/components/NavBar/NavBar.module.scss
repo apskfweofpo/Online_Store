@@ -1,7 +1,10 @@
 @mixin button{
-    background-color: white;
-    color: rgb(228, 176, 80);
+    background-color: rgb(97, 105, 250);
+    color: rgb(255, 255, 255);
     border: 1px solid rgb(228, 176, 80);
+    padding: 20px 30px;
+    font-weight: 700;
+    border-radius: 1rem;
     &:hover{
         transition: 0.3s ease 0s;
         background-color: rgb(255, 166, 0);
@@ -11,16 +14,10 @@
 }
 
 .logo{
-    width: 100%;
+    width: 200%;
     object-fit: contain;
-    max-width: 200px;
-    border-radius: 10px;
-    box-shadow: 5px 5px gray;
-    &:active{
-        transition: 0.4s ease-in 0s;
-        background-color: gray;
-        box-shadow: none;
-    }
+    max-width: 400px;
+    max-height: 140px;
 }
 
 .navbar{
@@ -28,7 +25,7 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 1rem;
-    background-color:beige;
+    background-color:rgba(88, 253, 253, 0.799);
     border-bottom: 1px solid black;
     margin-bottom: 30px;
 }
